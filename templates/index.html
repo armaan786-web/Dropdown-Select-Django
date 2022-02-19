@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+      <select name="region">
+             {% for region in regions %}
+                 <option
+                  value="{{ region }}"
+                  {% if selected_region == region %}
+                      selected="selected"
+                  {% endif %}
+                 >{{ region }}</option>
+             {% endfor %}
+        </select> 
+        <br>
+        <br>
+        <select name="city">
+          {% for city in regions2 %}
+              <option
+               value="{{ city }}"
+               {% if selected_region2 == city %}
+                   selected="selected"
+               {% endif %}
+              >{{ city }}</option>
+          {% endfor %}
+     </select> 
+
+        
+       
+        <input type="submit" value="Select">
+    </form>
+    {% if selected_region %}
+      <p>
+        Nice, you selected: {{ selected_region }}!
+      </p>
+      <p>
+        Restaurants in this region:
+      </p>
+      <ul>
+         {% for restaurant in restaurants %}
+           <li>{{ restaurant.restName }}</li>
+           <li>{{ restaurant.phone }}</li>
+         {% endfor %}
+      </ul>
+    {% endif %}
+
+   
+    {% if selected_region2 %}
+      <p>
+        Nice, you selected: {{ selected_region2 }}!
+      </p>
+      <p>
+        Restaurants in this region:
+      </p>
+      <ul>
+         {% for employee in employee %}
+           <li>{{ employee.name }}</li>
+           {% comment %} <li>{{ restaurant.phone }}</li> {% endcomment %}
+         {% endfor %}
+      </ul>
+      <input type="text" name="" id="" value="{% for employee in employee %}{{ employee.name }}{% endfor %}">
+    {% endif %}
+
+   
+  
+</body>
+</html>
